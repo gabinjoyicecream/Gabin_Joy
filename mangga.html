@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>GabinJoy – Es Krim Mangga</title>
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2076%22%3E%3Cpath%20d%3D%22M16%2036L48%2036L32%2074Z%22%20fill%3D%22%23f7c978%22%20stroke%3D%22%230b2a6b%22%20stroke-width%3D%223%22%20stroke-linejoin%3D%22round%22/%3E%3Ccircle%20cx%3D%2219%22%20cy%3D%2232%22%20r%3D%2212%22%20fill%3D%22%232f6fe0%22%20stroke%3D%22%230b2a6b%22%20stroke-width%3D%223%22/%3E%3Ccircle%20cx%3D%2245%22%20cy%3D%2232%22%20r%3D%2212%22%20fill%3D%22%23ffa51f%22%20stroke%3D%22%230b2a6b%22%20stroke-width%3D%223%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2221%22%20r%3D%2213%22%20fill%3D%22%2378cc12%22%20stroke%3D%22%230b2a6b%22%20stroke-width%3D%223%22/%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Sniglet:wght@400;800&family=Fredoka:wght@500;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0b4bb8;
+      --a: #0b4bb8;
+      --soft: #cfd9f3;
+      --bg: #eef3fc;
+      --card: #fff;
+      --txt: #0b2a6b;
+      --f: 'Sniglet', 'Fredoka', 'Baloo 2', system-ui, sans-serif;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    @media (prefers-color-scheme:dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0e1b3d;
+        --card: #1b2b57;
+        --txt: #eaf0ff
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0e1b3d;
+      --card: #1b2b57;
+      --txt: #eaf0ff
+    }
+
+    html {
+      scroll-padding-top: env(safe-area-inset-top, 0px)
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--f);
+      font-weight: 400;
+      background: var(--bg);
+      color: var(--txt);
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background .5s
+    }
+
+    #bgimg {
+      position: fixed;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: .28;
+      z-index: 0;
+      transition: background-image .3s
+    }
+
+    #wave {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      z-index: 1;
+      pointer-events: none
+    }
+
+    #wave svg {
+      width: 100%;
+      height: 100%;
+      display: block
+    }
+
+    main {
+      position: relative;
+      z-index: 2;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 60px 18px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column
+    }
+
+    .view {
+      animation: pop .6s cubic-bezier(.3, 1.6, .5, 1) both;
+      flex: 1
+    }
+
+    @keyframes pop {
+      from {
+        opacity: 0;
+        transform: scale(.85) translateY(30px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    /* judul */
+    .logo {
+      position: relative;
+      text-align: center;
+      margin: 26px 0 8px
+    }
+
+    .logo h1 {
+      margin: 0;
+      font-family: var(--f);
+      font-weight: 800;
+      font-size: clamp(50px, 14vw, 120px);
+      line-height: 1.05;
+      letter-spacing: 0;
+      color: #0b4bb8;
+      -webkit-text-stroke: 10px #fff;
+      paint-order: stroke fill;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 6px 0 rgba(11, 75, 184, .25))
+    }
+
+    @keyframes shine {
+      from {
+        background-position: 0 0
+      }
+
+      to {
+        background-position: -200% 0
+      }
+    }
+
+    .logo .sp {
+      position: absolute;
+      font-size: clamp(14px, 3vw, 26px);
+      animation: tw 1.6s ease-in-out infinite
+    }
+
+    @keyframes tw {
+
+      0%,
+      100% {
+        transform: scale(0) rotate(0);
+        opacity: 0
+      }
+
+      50% {
+        transform: scale(1.2) rotate(40deg);
+        opacity: 1
+      }
+    }
+
+    .cone {
+      position: absolute;
+      left: clamp(-6px, 1vw, 20px);
+      top: -34px;
+      width: clamp(70px, 17vw, 150px);
+      transform: rotate(-8deg);
+      animation: wob 3s ease-in-out infinite;
+      transform-origin: 20% 80%;
+      z-index: 0;
+      overflow: visible
+    }
+
+    @keyframes wob {
+      50% {
+        transform: rotate(-1deg) translateY(4px)
+      }
+    }
+
+    .drip {
+      animation: drip 2.4s ease-in infinite;
+      transform-origin: 50% 0;
+      transform-box: fill-box
+    }
+
+    @keyframes drip {
+      0% {
+        transform: scaleY(.3)
+      }
+
+      60% {
+        transform: scaleY(1)
+      }
+
+      100% {
+        transform: scaleY(.3)
+      }
+    }
+
+    .tag {
+      text-align: center;
+      font-size: clamp(16px, 3.4vw, 22px);
+      font-weight: 700;
+      margin: 6px 0 22px
+    }
+
+    .chips {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 26px
+    }
+
+    .chip {
+      background: var(--card);
+      border-radius: 30px;
+      padding: 6px 16px 6px 10px;
+      font-weight: 700;
+      color: var(--ink);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      box-shadow: 0 3px 0 rgba(0, 0, 0, .08)
+    }
+
+    .chip i {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--a);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-style: normal;
+      font-size: 13px
+    }
+
+    /* kartu rasa */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px 14px;
+      padding: 10px 0 20px;
+      max-width: 760px;
+      margin: 0 auto
+    }
+
+    .grid .fl:first-child {
+      grid-column: 1/-1;
+      width: 52%;
+      justify-self: center
+    }
+
+    .grid .fl:nth-child(n+2) {
+      margin-top: -6px
+    }
+
+    .grid .name {
+      font-size: clamp(26px, 6vw, 48px);
+      -webkit-text-stroke: clamp(5px, 1vw, 8px) var(--c1);
+      margin-top: clamp(-34px, -5vw, -22px)
+    }
+
+    .grid .oval {
+      border-width: clamp(4px, 1vw, 8px)
+    }
+
+    .grid .star {
+      width: clamp(54px, 13vw, 92px);
+      height: clamp(54px, 13vw, 92px);
+      font-size: clamp(9px, 2vw, 15px)
+    }
+
+    .grid .star b {
+      font-size: clamp(12px, 2.8vw, 20px)
+    }
+
+    .fl {
+      all: unset;
+      cursor: pointer;
+      display: block;
+      text-align: center;
+      position: relative;
+      -webkit-tap-highlight-color: transparent
+    }
+
+    .fl:focus-visible {
+      outline: 4px dashed var(--a);
+      outline-offset: 6px;
+      border-radius: 40px
+    }
+
+    .oval {
+      width: 100%;
+      aspect-ratio: 1/.82;
+      border-radius: 50%;
+      border: 8px solid #fff;
+      overflow: hidden;
+      box-shadow: 0 10px 0 var(--c1), 0 18px 26px rgba(0, 0, 0, .18);
+      transition: transform .35s cubic-bezier(.3, 1.8, .5, 1)
+    }
+
+    .oval img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .6s
+    }
+
+    .fl:hover .oval,
+    .fl:focus-visible .oval {
+      transform: rotate(-4deg) scale(1.05)
+    }
+
+    .fl:hover .oval img {
+      transform: scale(1.15)
+    }
+
+    .fl:active .oval {
+      transform: scale(.9, 1.06)
+    }
+
+    .name {
+      display: inline-block;
+      margin-top: -34px;
+      position: relative;
+      font-family: var(--f);
+      font-weight: 800;
+      font-size: clamp(34px, 7vw, 50px);
+      line-height: 1;
+      color: #fff;
+      -webkit-text-stroke: 8px var(--c1);
+      paint-order: stroke fill;
+      text-shadow: 0 4px 0 rgba(0, 0, 0, .15);
+      transition: transform .3s cubic-bezier(.3, 2, .5, 1)
+    }
+
+    .fl:hover .name {
+      transform: translateY(-6px) rotate(2deg)
+    }
+
+    .star {
+      position: absolute;
+      right: -6px;
+      top: -10px;
+      width: 92px;
+      height: 92px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: var(--c1);
+      font-size: 15px;
+      line-height: 1.05;
+      background: #fff;
+      clip-path: polygon(50% 0, 60% 12%, 75% 7%, 78% 22%, 93% 25%, 88% 40%, 100% 50%, 88% 60%, 93% 75%, 78% 78%, 75% 93%, 60% 88%, 50% 100%, 40% 88%, 25% 93%, 22% 78%, 7% 75%, 12% 60%, 0 50%, 12% 40%, 7% 25%, 22% 22%, 25% 7%, 40% 12%);
+    }
+
+    .star b {
+      font-size: 20px;
+      display: block
+    }
+
+    .star,
+    .price {
+      animation: none !important;
+      transform: none !important;
+      rotate: none !important
+    }
+
+    /* tombol */
+    .btn {
+      all: unset;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--f);
+      font-weight: 800;
+      font-size: 20px;
+      padding: 10px 26px;
+      border-radius: 40px;
+      background: var(--c1);
+      color: #fff;
+      box-shadow: 0 6px 0 rgba(0, 0, 0, .25);
+      transition: transform .15s, box-shadow .15s;
+      -webkit-tap-highlight-color: transparent
+    }
+
+    .btn:hover {
+      transform: translateY(-3px) rotate(-1.5deg);
+      box-shadow: 0 9px 0 rgba(0, 0, 0, .25)
+    }
+
+    .btn:active {
+      transform: translateY(5px) scale(1.05, .9);
+      box-shadow: 0 1px 0 rgba(0, 0, 0, .25)
+    }
+
+    .btn:focus-visible {
+      outline: 4px dashed var(--ink);
+      outline-offset: 4px
+    }
+
+    .btn.back {
+      background: #fff;
+      color: var(--ink)
+    }
+
+    .rip {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .55);
+      transform: scale(0);
+      animation: rip .6s ease-out forwards;
+      pointer-events: none
+    }
+
+    @keyframes rip {
+      to {
+        transform: scale(4);
+        opacity: 0
+      }
+    }
+
+    .cf {
+      position: fixed;
+      z-index: 99;
+      pointer-events: none;
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      animation: cf .8s cubic-bezier(.1, .7, .4, 1) forwards
+    }
+
+    @keyframes cf {
+      to {
+        transform: translate(var(--x), var(--y)) rotate(var(--r));
+        opacity: 0
+      }
+    }
+
+    /* halaman rasa */
+    .head {
+      text-align: center;
+      margin: 10px 0 24px
+    }
+
+    .head h2 {
+      margin: 10px 0 0;
+      font-family: var(--f);
+      font-weight: 800;
+      font-size: clamp(56px, 16vw, 120px);
+      line-height: 1;
+      color: var(--c1);
+      -webkit-text-stroke: 10px #fff;
+      paint-order: stroke fill;
+      filter: drop-shadow(0 6px 0 rgba(0, 0, 0, .12));
+      animation: bounce 2.6s ease-in-out infinite
+    }
+
+    @keyframes bounce {
+      50% {
+        transform: translateY(-8px) rotate(-1.5deg)
+      }
+    }
+
+    .price {
+      display: inline-block;
+      background: #fff;
+      color: var(--c1);
+      font-weight: 800;
+      border-radius: 30px;
+      padding: 4px 20px;
+      font-size: 22px;
+      box-shadow: 0 4px 0 rgba(0, 0, 0, .12)
+    }
+
+    .gal {
+      position: relative;
+      max-width: 520px;
+      margin: 30px auto 38px;
+      padding: 0 4%
+    }
+
+    .hero {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      aspect-ratio: 1/.86;
+      border-radius: 50%;
+      border: 9px solid #fff;
+      overflow: hidden;
+      box-shadow: 0 10px 0 var(--c1), 0 20px 28px rgba(0, 0, 0, .18);
+      animation: pop .7s cubic-bezier(.3, 1.6, .5, 1) both
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block
+    }
+
+    .deco {
+      position: absolute;
+      z-index: 1;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      object-fit: cover;
+      aspect-ratio: 1;
+      mix-blend-mode: multiply;
+      opacity: .9;
+      -webkit-mask-image: radial-gradient(closest-side, #000 55%, transparent 100%);
+      mask-image: radial-gradient(closest-side, #000 55%, transparent 100%);
+      animation: flt 3.8s ease-in-out infinite alternate
+    }
+
+    .deco.d1 {
+      width: 40%;
+      right: -6%;
+      top: -14%;
+      --r: 12deg
+    }
+
+    .deco.d2 {
+      width: 30%;
+      left: -5%;
+      bottom: -10%;
+      --r: -16deg;
+      animation-delay: 1.2s
+    }
+
+    @keyframes flt {
+      from {
+        transform: translateY(0) rotate(-4deg)
+      }
+
+      to {
+        transform: translateY(-9px) rotate(5deg)
+      }
+    }
+
+    .act {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 24px
+    }
+
+    /* footer */
+    footer {
+      position: relative;
+      z-index: 2;
+      background: var(--c1);
+      color: #fff;
+      padding: 22px 18px calc(22px + env(safe-area-inset-bottom, 0px));
+      text-align: center;
+      border-radius: 40px 40px 0 0;
+      transition: background .5s
+    }
+
+    footer p {
+      margin: 0 0 12px;
+      font-weight: 700;
+      text-shadow: 0 2px 0 rgba(0, 0, 0, .25)
+    }
+
+    .soc {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap
+    }
+
+    .soc a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: 40px;
+      box-shadow: 0 5px 0 rgba(0, 0, 0, .25);
+      transition: transform .15s cubic-bezier(.3, 2, .5, 1)
+    }
+
+    .soc a:hover {
+      transform: translateY(-4px) rotate(-2deg) scale(1.05)
+    }
+
+    .soc a:active {
+      transform: translateY(3px) scale(.95)
+    }
+
+    .soc a:focus-visible {
+      outline: 4px dashed #fff;
+      outline-offset: 3px
+    }
+
+    .soc svg {
+      width: 24px;
+      height: 24px;
+      flex: none
+    }
+
+    .soc small {
+      display: block;
+      font-weight: 500;
+      opacity: .75;
+      font-size: 12px;
+      line-height: 1
+    }
+
+    /* transisi halaman */
+    #wipe {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      pointer-events: none;
+      transform: translateY(105%);
+      display: grid;
+      place-items: center;
+      transition: transform .55s cubic-bezier(.7, 0, .3, 1)
+    }
+
+    #wipe::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: -60px;
+      height: 62px;
+      background: inherit;
+      -webkit-mask: radial-gradient(circle 34px at 34px 62px, transparent 98%, #000) 0 0/68px 100%;
+      mask: radial-gradient(circle 34px at 34px 62px, #000 98%, transparent) 0 0/68px 100%
+    }
+
+    #wipe.in {
+      transform: none
+    }
+
+    #wipe.out {
+      transform: translateY(-105%)
+    }
+
+    #wipe .em {
+      font-size: 90px;
+      animation: hop .5s ease-in-out infinite alternate
+    }
+
+    @keyframes hop {
+      from {
+        transform: translateY(0) rotate(-10deg) scale(1, .9)
+      }
+
+      to {
+        transform: translateY(-30px) rotate(10deg) scale(.95, 1.1)
+      }
+    }
+
+    .tag,
+    .chip,
+    .price,
+    .star,
+    .soc a,
+    .soc small,
+    footer p {
+      font-weight: 800;
+      letter-spacing: .2px
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01s !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01s !important
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="bgimg"></div>
+  <div id="wave"></div>
+  <main id="app"></main>
+  <footer id="foot"></footer>
+  <div id="wipe">
+    <div class="em">🍦</div>
+  </div>
+
+  <script>
+    // ====== UBAH DI SINI ======
+    const WA_NUMBER = "6283183219489";          // 0831-8321-9489 format internasional
+    const WA_TEXT = "Halo GabinJoy! Saya mau pesan ";
+    const WA_SHOW = "0831-8321-9489";
+    const IG_USER = "gabinjoy";                // ganti dengan username Instagram asli
+    // ==========================
+
+    const IMG = {
+      bar_oreo: "images/bar_oreo.jpg",
+      krim_oreo: "images/krim_oreo.jpg",
+      bahan_oreo: "images/bahan_oreo.jpg",
+      bar_matcha: "images/bar_matcha.jpg",
+      krim_matcha: "images/krim_matcha.jpg",
+      bahan_matcha: "images/bahan_matcha.jpg",
+      bar_mangga: "images/bar_mangga.jpg",
+      krim_mangga: "images/krim_mangga.jpg",
+      bahan_mangga: "images/bahan_mangga.jpg"
+    };
+    const FL = {
+      oreo: {n: "oreo", c1: "#0b4bb8", c2: "#9db4ec", bg: "#eef2fc", emo: "🍪", bahan: "Biskuit Oreo", wipe: "#0b4bb8"},
+      matcha: {n: "matcha", c1: "#3f7d0b", c2: "#72cc00", bg: "#eaf3cf", emo: "🍵", bahan: "Bubuk Matcha", wipe: "#5fb800"},
+      mangga: {n: "mangga", c1: "#f08a00", c2: "#ffd21f", bg: "#fff4c6", emo: "🥭", bahan: "Mangga Segar", wipe: "#ffb800"}
+    };
+    const HOME = {c1: "#0b4bb8", c2: "#0b4bb8", bg: "#eef3fc", tri: 1, foot: "#0b4bb8", wipe: "#0b4bb8", emo: "🍦"};
+    const PAGE = "mangga";
+    const $ = s => document.querySelector(s);
+    const root = document.documentElement;
+
+    const waLink = t => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_TEXT + t)}`;
+    const IGI = `<svg viewBox="0 0 24 24" fill="none" stroke="#c13584" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="#c13584"/></svg>`;
+    const WAI = `<svg viewBox="0 0 24 24"><path fill="#25d366" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/><path fill="#fff" d="M8.6 7.5c.2-.4.5-.4.7-.4h.5c.2 0 .4.1.5.4l.8 1.8c.1.2 0 .4-.1.6l-.5.6c-.1.2-.2.3-.1.5.5.9 1.5 1.8 2.6 2.3.2.1.4 0 .5-.1l.7-.8c.2-.2.3-.2.5-.1l1.7.8c.2.1.3.2.3.4 0 .5-.2 1.2-.8 1.6-.6.4-1.3.5-2.1.3-2.6-.7-4.6-2.6-5.6-4.9-.3-.8-.2-1.7.3-2.3z"/></svg>`;
+
+    const cone = `<svg class="cone" viewBox="0 0 200 240" role="img" aria-label="Logo GabinJoy"><defs><clipPath id="lgc"><path d="M52 112L148 112L100 234Z"/></clipPath></defs><g stroke="#0b2a6b" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"><path d="M52 112L148 112L100 234Z" fill="#f7c978"/><g clip-path="url(#lgc)" stroke="#d99a3d" stroke-width="3" fill="none"><path d="M40 130L130 250M40 160L110 250M40 190L90 250M160 130L70 250M160 160L90 250M160 190L110 250"/></g><rect class="drip" x="40" y="104" width="14" height="40" rx="7" fill="#2f6fe0"/><rect class="drip" x="146" y="104" width="14" height="34" rx="7" fill="#ffa51f" style="animation-delay:.8s"/><rect class="drip" x="93" y="96" width="14" height="48" rx="7" fill="#78cc12" style="animation-delay:1.4s"/><circle cx="58" cy="102" r="38" fill="#2f6fe0"/><circle cx="142" cy="102" r="38" fill="#ffa51f"/><circle cx="100" cy="64" r="42" fill="#78cc12"/><g stroke="none"><g fill="#0b1f4d"><rect x="38" y="94" width="13" height="9" rx="3" transform="rotate(-20 44 98)"/><rect x="62" y="114" width="11" height="8" rx="3" transform="rotate(15 67 118)"/><rect x="50" y="80" width="9" height="7" rx="2"/></g><g fill="#fff" opacity=".85"><circle cx="72" cy="94" r="2.5"/><circle cx="40" cy="116" r="2.5"/><circle cx="76" cy="78" r="2"/></g><g fill="#ffd21f"><rect x="122" y="92" width="13" height="13" rx="3" transform="rotate(15 128 98)"/><rect x="150" y="112" width="11" height="11" rx="3" transform="rotate(-12 155 117)"/><rect x="154" y="82" width="9" height="9" rx="2"/></g><g fill="#3f7d0b" opacity=".7"><circle cx="90" cy="70" r="2.5"/><circle cx="112" cy="78" r="2.5"/><circle cx="104" cy="54" r="2"/></g></g><g fill="none" stroke="#fff" stroke-width="5" opacity=".6"><path d="M80 50Q90 40 104 41"/><path d="M36 88Q40 78 50 74"/><path d="M122 84Q126 74 136 70"/></g></g></svg>`;
+
+    function theme(t) {
+      root.style.setProperty('--c1', t.c1); root.style.setProperty('--ink', t.c1); root.style.setProperty('--a', t.c2);
+      root.style.setProperty('--bg', t.bg);
+      $('#wipe').style.background = t.wipe; $('#wipe .em').textContent = t.emo;
+      const w1 = t.tri ? '#cfd9f3' : t.c2, w2 = t.tri ? '#0b4bb8' : t.c1;
+      const acc = t.tri ? '<path d="M0 0H250V20C190 46 90 44 0 36Z" fill="#72cc00"/><path d="M730 0H1000V46C930 62 800 42 730 20Z" fill="#ff9f1c"/>' : '';
+      $('#wave').innerHTML = `<svg viewBox="0 0 1000 70" preserveAspectRatio="none"><path d="M0 0H1000V30C800 70 650 5 480 28S150 60 0 25Z" fill="${w1}"/>${acc}<path d="M0 0H1000V14C800 52 650 -10 480 10S150 42 0 8Z" fill="${w2}"/></svg>`;
+      $('#foot').style.background = t.foot || t.c1;
+    }
+    function footer() {
+      $('#foot').innerHTML = `<p>Menerima Pesan Antar 🛵 Delivery area terjangkau</p><div class="soc">
+  <a href="https://wa.me/${WA_NUMBER}" target="_blank" rel="noopener" class="fx">${WAI}<span><small>WhatsApp</small>${WA_SHOW}</span></a>
+  <a href="https://www.instagram.com/${IG_USER}" target="_blank" rel="noopener" class="fx">${IGI}<span><small>Instagram</small>@${IG_USER}</span></a></div>`;
+    }
+
+    function home() {
+      theme(HOME); const bg = $('#bgimg'); bg.innerHTML = ''; bg.style.opacity = '1';
+      bg.style.backgroundImage = 'radial-gradient(circle at 6% 30%,rgba(114,204,0,.20),transparent 34%),radial-gradient(circle at 98% 60%,rgba(255,159,28,.24),transparent 38%),radial-gradient(circle at 30% 105%,rgba(11,75,184,.16),transparent 55%)';
+      const cards = Object.keys(FL).map(k => {
+        const f = FL[k]; return `
+  <a class="fl fx" href="${k}.html" style="--c1:${f.c1}" aria-label="Lihat rasa ${f.n}">
+    <div class="oval"><img src="${IMG['bar_' + k]}" alt="GabinJoy rasa ${f.n}"></div>
+    <div class="star"><span>harga<b>10.000</b></span></div>
+    <span class="name">${f.n}</span></a>`
+      }).join('');
+      return `<div class="view">
+  <div class="logo">${cone}<h1>GabinJoy</h1>
+    <span class="sp" style="left:12%;top:20%">✨</span><span class="sp" style="right:10%;top:10%;animation-delay:.5s">✨</span><span class="sp" style="left:48%;top:92%;animation-delay:1s">⭐</span></div>
+  <div class="tag">Es krim sandwich homemade – pilih rasa favoritmu!</div>
+  <div class="chips"><span class="chip"><i>✓</i>Homemade</span><span class="chip"><i>✓</i>dengan cinta</span></div>
+  <div class="grid">${cards}</div></div>`;
+    }
+    function flavor(k) {
+      const f = FL[k]; theme(f); $('#bgimg').innerHTML = ''; $('#bgimg').style.opacity = ''; $('#bgimg').style.backgroundImage = `url(${IMG['krim_' + k]})`;
+      return `<div class="view" style="--c1:${f.c1}">
+  <div class="head"><a class="btn back fx" href="index.html">← Kembali</a><h2>${f.n}</h2><span class="price">harga 10.000</span></div>
+  <div class="gal">
+   <img class="deco d1" src="${IMG['bahan_' + k]}" alt="" aria-hidden="true" draggable="false">
+   <img class="deco d2" src="${IMG['bahan_' + k]}" alt="" aria-hidden="true" draggable="false">
+   <div class="hero"><img src="${IMG['bar_' + k]}" alt="Es krim sandwich ${f.n} GabinJoy"></div></div>
+  <div class="act"><a class="btn fx" style="text-decoration:none" target="_blank" rel="noopener" href="${waLink('rasa ' + f.n)}">${f.emo} Pesan rasa ${f.n}</a>
+  <a class="btn back fx" href="index.html">🍦 Rasa lainnya</a></div></div>`;
+    }
+
+    function render(r) {
+      $('#app').innerHTML = FL[r] ? flavor(r) : home();
+      footer();
+    }
+    function confetti(x, y) {
+      const cols = ['#ff6fa5', '#ffd21f', '#3fd0ff', '#7bdc3a', '#fff', '#ff9f1c'];
+      for (let i = 0; i < 14; i++) {
+        const d = document.createElement('i'); d.className = 'cf';
+        const a = Math.random() * 6.28, s = 40 + Math.random() * 70;
+        d.style.cssText = `left:${x}px;top:${y}px;background:${cols[i % 6]};--x:${Math.cos(a) * s}px;--y:${Math.sin(a) * s - 30}px;--r:${Math.random() * 540}deg`;
+        document.body.appendChild(d); setTimeout(() => d.remove(), 850);
+      }
+    }
+    document.addEventListener('click', e => {
+      const el = e.target.closest('.fx'); if (!el) return;
+      confetti(e.clientX || innerWidth / 2, e.clientY || innerHeight / 2);
+      if (el.classList.contains('btn')) {
+        const b = el.getBoundingClientRect(), r = document.createElement('span');
+        r.className = 'rip'; r.style.cssText = `width:40px;height:40px;left:${e.clientX - b.left - 20}px;top:${e.clientY - b.top - 20}px`;
+        el.appendChild(r); setTimeout(() => r.remove(), 650);
+      }
+    });
+    render(PAGE);
+  </script>
+</body>
+
+</html>
